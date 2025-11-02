@@ -46,6 +46,28 @@ INSTALLED_APPS = [
     'orders',
 ]
 
+REST_FRAMEWORK = {
+    # --- რენდერები ---
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',  # ძირითადი ფორმატი (API JSON response)
+        'rest_framework.renderers.BrowsableAPIRenderer'  # შესანიშნავი დეველოპერული ხელსაწყო (Django Rest-ის web UI)
+    ],
+
+    # --- პარსერები ---
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',  # JSON ფორმატის მოთხოვნებისთვის
+        'rest_framework.parsers.FormParser',  # ფორმის მონაცემების დასამუშავებლად
+        'rest_framework.parsers.MultiPartParser'  # სურათების/ფაილების ატვირთვისთვის
+    ],
+
+    # --- ფილტრები, ძიება და დალაგება ---
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',  # ?color=white&category=table
+        'rest_framework.filters.SearchFilter',  # ?search=chair
+        'rest_framework.filters.OrderingFilter',  # ?ordering=-price
+    ]
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
