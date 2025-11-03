@@ -5,7 +5,8 @@ from rest_framework.response import Response
 
 from orders.models import Order, OrderItem
 from orders.serializers import OrderSerializer, CreateOrderSerializer
-from cart.models import Cart, CartItem
+from cart.models import Cart
+from orders.tasks import send_order_confirmation_email
 
 
 # ავტორიზებული მომხმარებლის ყველა შეკვეთა
@@ -67,6 +68,9 @@ class CreateOrderView(generics.GenericAPIView):
 
         # კალათის გასუფთავება შეკვეთის შექმნის შემდეგ
         cart.items.all().delete()
+
+        # Asynchronous email send via Celery
+        send_order_confirmation_email.delay(order.id)
 
         order_serializer = OrderSerializer(order)
         return Response(order_serializer.data, status=status.HTTP_201_CREATED)
