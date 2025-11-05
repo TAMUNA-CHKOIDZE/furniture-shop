@@ -1,8 +1,5 @@
 # 🛋️ FurniShop – Online Furniture Store
 
-**Repository:
-** [https://github.com/TAMUNA-CHKOIDZE/furniture-shop.git](https://github.com/TAMUNA-CHKOIDZE/furniture-shop.git)
-
 FurniShop is a full-featured **online furniture store** built with **Django** and **Django REST Framework**. The project
 includes product catalogues, user registration, shopping cart, order management, and **asynchronous background tasks** (
 email notifications and automatic status updates) using Celery. It also comes with **media files, static files, and
